@@ -12,9 +12,10 @@ import Footer from "./components/Footer";
 function App() {
   return (
     <>
-      <Background />
+      <>
+  {/* <Background /> */}
 
-      <div className="relative min-h-screen overflow-x-hidden text-white">
+  <div className="relative min-h-screen overflow-hidden text-white">
         <Navbar />
 
         <main className="relative z-10">
