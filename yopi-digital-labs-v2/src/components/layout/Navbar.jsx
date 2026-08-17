@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import GB from "country-flag-icons/react/3x2/GB";
+import DE from "country-flag-icons/react/3x2/DE";
+import HU from "country-flag-icons/react/3x2/HU";
 import {
   Menu,
   X,
@@ -20,11 +23,10 @@ const links = [
   { name: "Contact", href: "#contact" },
 ];
 
-export default function Navbar() {
+export default function Navbar({ language, setLanguage }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [language, setLanguage] = useState("EN");
-const [languageOpen, setLanguageOpen] = useState(false);
+  const [languageOpen, setLanguageOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,21 +59,23 @@ const [languageOpen, setLanguageOpen] = useState(false);
             href="#"
             className="flex items-center gap-3 select-none"
           >
-            <motion.div
-              animate={{
-                y: [0, -4, 0],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 shadow-lg shadow-cyan-500/30"
-            >
-              <span className="text-lg font-bold text-white">
-                Y
-              </span>
-            </motion.div>
+           <motion.div
+  animate={{
+    y: [0, -4, 0],
+  }}
+  transition={{
+    duration: 4,
+    repeat: Infinity,
+    ease: "easeInOut",
+  }}
+  className="h-12 w-12 overflow-hidden rounded-full shadow-lg shadow-cyan-500/30"
+>
+  <img
+    src="/logo-yopi.png"
+    alt="YOPI Digital Labs"
+    className="h-full w-full object-cover"
+  />
+</motion.div>
 
             <div className="block">
               <div className="text-sm font-semibold tracking-wide text-white sm:text-base">
@@ -132,34 +136,31 @@ const [languageOpen, setLanguageOpen] = useState(false);
         className="absolute right-0 mt-3 w-44 overflow-hidden rounded-2xl border border-white/10 bg-[#0B1020]/95 backdrop-blur-xl"
       >
 
-        {[
-          ["EN", "🇬🇧 English"],
-          ["DE", "🇩🇪 Deutsch"],
-          ["HU", "🇭🇺 Magyar"],
-        ].map(([code, label]) => (
-
-          <button
-            key={code}
-            onClick={() => {
-              setLanguage(code);
-              setLanguageOpen(false);
-            }}
-            className="w-full px-4 py-3 text-left text-white/80 transition hover:bg-cyan-500/10 hover:text-cyan-300"
-          >
-            {label}
-          </button>
-
-        ))}
-
-      </motion.div>
-
-    )}
-
+          {[
+  ["EN", "English", GB],
+  ["DE", "Deutsch", DE],
+  ["HU", "Magyar", HU],
+].map(([code, label, Flag]) => (
+  <button
+    key={code}
+    onClick={() => {
+      setLanguage(code);
+      setLanguageOpen(false);
+    }}
+    className="w-full px-4 py-3 text-left text-white/80 transition hover:bg-cyan-500/10 hover:text-cyan-300"
+  >
+    <Flag className="mr-2 h-4 w-6" title={label} />
+    {label}
+  </button>
+))}          
+                            </motion.div>
+            )}
   </AnimatePresence>
 
 </div>
 
   <button
+  onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
     className="group flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:scale-105"
   >
     Start Your Project
@@ -213,7 +214,10 @@ const [languageOpen, setLanguageOpen] = useState(false);
     ].map(([code, flag]) => (
       <button
         key={code}
-        onClick={() => setLanguage(code)}
+        onClick={() => {
+  setLanguage(code);
+  setMobileOpen(false);
+}}
         className={`rounded-full px-4 py-2 text-sm transition ${
           language === code
             ? "bg-cyan-500/20 text-cyan-300"
@@ -227,6 +231,10 @@ const [languageOpen, setLanguageOpen] = useState(false);
   </div>
 
   <button
+  onClick={() => {
+  document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+  setMobileOpen(false);
+}}
     className="mt-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 py-3 font-semibold text-white"
   >
     Start Your Project

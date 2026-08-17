@@ -1,115 +1,209 @@
 import { motion } from "framer-motion";
 
-const stars = Array.from({ length: 45 }, (_, i) => ({
-  id: i,
-  left: `${Math.random() * 100}%`,
-  top: `${Math.random() * 100}%`,
-  size: Math.random() * 2 + 1,
-  delay: Math.random() * 5,
-  duration: 4 + Math.random() * 4,
-}));
-
 export default function HeroBackground() {
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      {/* Base */}
+      <div className="absolute inset-0 bg-[#060816]" />
 
-      {/* Top Glow */}
-
-      <div
-        className="absolute left-1/2 top-0 h-[700px] w-[700px] -translate-x-1/2 rounded-full blur-[120px]"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(56,189,248,.18) 0%, rgba(56,189,248,.08) 45%, transparent 75%)",
+      {/* Main cyan atmosphere */}
+      <motion.div
+        className="
+          absolute
+          left-[8%]
+          top-[18%]
+          h-[520px]
+          w-[520px]
+          rounded-full
+          bg-cyan-400/[0.07]
+          blur-[150px]
+        "
+        animate={{
+          x: [0, 100, 40, -30, 0],
+          y: [0, -45, 55, 20, 0],
+          scale: [1, 1.12, 0.96, 1.08, 1],
+          opacity: [0.55, 0.8, 0.6, 0.75, 0.55],
+        }}
+        transition={{
+          duration: 16,
+          repeat: Infinity,
+          ease: "easeInOut",
         }}
       />
 
-      {/* Left Glow */}
-
-      <div
-        className="absolute -left-40 top-40 h-[500px] w-[500px] rounded-full blur-[140px]"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(34,211,238,.12) 0%, transparent 75%)",
+      {/* Blue atmosphere */}
+      <motion.div
+        className="
+          absolute
+          right-[5%]
+          top-[5%]
+          h-[600px]
+          w-[600px]
+          rounded-full
+          bg-blue-600/[0.08]
+          blur-[170px]
+        "
+        animate={{
+          x: [0, -90, -30, 60, 0],
+          y: [0, 60, -35, 35, 0],
+          scale: [1, 0.94, 1.08, 0.98, 1],
+          opacity: [0.5, 0.7, 0.55, 0.75, 0.5],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: "easeInOut",
         }}
       />
 
-      {/* Right Glow */}
-
-      <div
-        className="absolute -right-48 top-24 h-[600px] w-[600px] rounded-full blur-[140px]"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(59,130,246,.10) 0%, transparent 75%)",
+      {/* Central soft glow */}
+      <motion.div
+        className="
+          absolute
+          left-1/2
+          top-[45%]
+          h-[420px]
+          w-[760px]
+          -translate-x-1/2
+          rounded-full
+          bg-sky-400/[0.05]
+          blur-[150px]
+        "
+        animate={{
+          x: ["-50%", "-43%", "-56%", "-47%", "-50%"],
+          y: [0, -25, 20, -15, 0],
+          scale: [1, 1.06, 0.97, 1.04, 1],
+          opacity: [0.4, 0.65, 0.45, 0.6, 0.4],
+        }}
+        transition={{
+          duration: 18,
+          repeat: Infinity,
+          ease: "easeInOut",
         }}
       />
 
-      {/* Stars */}
-
-      {stars.map((star) => (
-        <motion.span
-          key={star.id}
-          className="absolute rounded-full bg-cyan-300"
-          style={{
-            left: star.left,
-            top: star.top,
-            width: star.size,
-            height: star.size,
-          }}
-          animate={{
-            opacity: [0.15, 0.8, 0.15],
-            scale: [1, 1.4, 1],
-          }}
-          transition={{
-            duration: star.duration,
-            delay: star.delay,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      ))}
-            {/* Digital Grid */}
-
-      <div
-        className="absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(255,255,255,.15) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,.15) 1px, transparent 1px)
-          `,
-          backgroundSize: "90px 90px",
+      {/* Slow horizontal light sweep */}
+      <motion.div
+        className="
+          absolute
+          left-[-30%]
+          top-[52%]
+          h-[180px]
+          w-[80%]
+          rotate-[-7deg]
+          rounded-full
+          bg-cyan-300/[0.04]
+          blur-[100px]
+        "
+        animate={{
+          x: ["0%", "55%", "95%", "40%", "0%"],
+          opacity: [0.15, 0.45, 0.25, 0.4, 0.15],
+        }}
+        transition={{
+          duration: 24,
+          repeat: Infinity,
+          ease: "easeInOut",
         }}
       />
 
-      {/* Bottom Horizon */}
-
-      <div
-        className="absolute bottom-0 left-1/2 h-[420px] w-[1200px] -translate-x-1/2 rounded-full blur-[140px]"
-        style={{
-          background:
-            "radial-gradient(circle at center, rgba(34,211,238,.18) 0%, rgba(34,211,238,.06) 45%, transparent 75%)",
+      {/* Floating particles */}
+      <motion.div
+        className="absolute left-[12%] top-[24%] h-[3px] w-[3px] rounded-full bg-cyan-200"
+        animate={{
+          x: [0, 45, 15, -30, 0],
+          y: [0, -20, 30, 10, 0],
+          opacity: [0.15, 0.7, 0.25, 0.55, 0.15],
+          scale: [1, 1.5, 1, 1.3, 1],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
         }}
       />
 
-      {/* Top Vignette */}
-
-      <div
-        className="absolute inset-x-0 top-0 h-40"
-        style={{
-          background:
-            "linear-gradient(to bottom, rgba(6,8,22,.65), transparent)",
+      <motion.div
+        className="absolute left-[34%] top-[16%] h-[2px] w-[2px] rounded-full bg-blue-200"
+        animate={{
+          x: [0, -35, 25, 8, 0],
+          y: [0, 35, -20, 15, 0],
+          opacity: [0.1, 0.6, 0.2, 0.5, 0.1],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1,
         }}
       />
 
-      {/* Bottom Vignette */}
-
-      <div
-        className="absolute inset-x-0 bottom-0 h-64"
-        style={{
-          background:
-            "linear-gradient(to top, rgba(6,8,22,.95), transparent)",
+      <motion.div
+        className="absolute right-[17%] top-[26%] h-[3px] w-[3px] rounded-full bg-cyan-200"
+        animate={{
+          x: [0, -40, -8, 32, 0],
+          y: [0, -25, 25, -10, 0],
+          opacity: [0.1, 0.7, 0.2, 0.55, 0.1],
+          scale: [1, 1.4, 1, 1.25, 1],
+        }}
+        transition={{
+          duration: 9,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2,
         }}
       />
 
+      <motion.div
+        className="absolute right-[31%] top-[58%] h-[2px] w-[2px] rounded-full bg-blue-200"
+        animate={{
+          x: [0, 40, -20, 28, 0],
+          y: [0, 20, -25, 5, 0],
+          opacity: [0.1, 0.55, 0.15, 0.5, 0.1],
+        }}
+        transition={{
+          duration: 11,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1.5,
+        }}
+      />
+
+      <motion.div
+        className="absolute left-[24%] top-[68%] h-[3px] w-[3px] rounded-full bg-cyan-200"
+        animate={{
+          x: [0, 35, -20, 15, 0],
+          y: [0, -20, 25, -5, 0],
+          opacity: [0.1, 0.5, 0.15, 0.45, 0.1],
+        }}
+        transition={{
+          duration: 12,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 3,
+        }}
+      />
+
+      {/* Very subtle vignette */}
+      <div
+        className="
+          absolute
+          inset-0
+          bg-[radial-gradient(circle_at_center,transparent_30%,rgba(3,6,18,0.38)_100%)]
+        "
+      />
+
+      {/* Bottom fade */}
+      <div
+        className="
+          absolute
+          inset-x-0
+          bottom-0
+          h-40
+          bg-gradient-to-t
+          from-[#060816]
+          to-transparent
+        "
+      />
     </div>
   );
 }

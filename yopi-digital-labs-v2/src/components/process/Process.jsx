@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import { translations } from "../../translations";
+
 
 const steps = [
   {
@@ -23,7 +25,17 @@ const steps = [
   },
 ];
 
-export default function Process() {
+export default function Process({ language }) {
+  const t =
+  translations[language]?.process || {
+    label: "Our Process",
+    title: "From idea to",
+    highlight: "AI-powered reality.",
+    description:
+      "Every successful solution starts with a clear roadmap and ends with measurable business results.",
+    steps: steps,
+  };
+  
   return (
     <section
       id="process"
@@ -43,19 +55,18 @@ export default function Process() {
           className="text-center"
         >
           <p className="text-sm font-semibold uppercase tracking-[0.35em] text-cyan-400">
-            Our Process
+            {t.label}
           </p>
 
           <h2 className="mt-4 text-3xl font-black text-white sm:text-5xl">
-            From idea to
+            {t.title}
             <span className="bg-gradient-to-r from-cyan-300 to-blue-500 bg-clip-text text-transparent">
-              {" "}AI-powered reality.
+              {" "}{t.highlight}
             </span>
           </h2>
 
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-white/60">
-            Every successful solution starts with a clear roadmap and ends with
-            measurable business results.
+            {t.description}
           </p>
         </motion.div>
 
@@ -77,7 +88,7 @@ export default function Process() {
           duration: 0.5,
           delay: index * 0.15,
         }}
-        className="relative flex gap-10"
+        className="group/process relative flex gap-10"
       >
         {/* Dot */}
         <div className="relative z-10 flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-full border border-cyan-400/50 bg-[#08111f] shadow-[0_0_30px_rgba(34,211,238,.35)]">
@@ -92,12 +103,12 @@ export default function Process() {
           </div>
 
           <h3 className="mt-2 text-xl font-bold text-white transition-colors duration-300 group-hover:text-cyan-300">
-            {step.title}
-          </h3>
+  {t.steps[index].title}
+</h3>
 
-          <p className="mt-3 text-sm leading-6 text-white/60">
-            {step.text}
-          </p>
+<p className="mt-3 text-sm leading-6 text-white/60">
+  {t.steps[index].text}
+</p>
 
         </div>
       </motion.div>

@@ -6,8 +6,10 @@ import Process from "./components/process/Process";
 import WhyChoose from "./components/whychoose/WhyChoose";
 import Contact from "./components/contact/Contact";
 import Footer from "./components/footer/Footer";
+import { useState } from "react";
 
 function App() {
+  const [language, setLanguage] = useState("EN");
 
   console.log("APP LOADED");
 
@@ -16,14 +18,14 @@ function App() {
       <Background />
 
       <div className="relative z-10">
-        <Navbar />
-        <Hero />
-        <Services />
+        <Navbar language={language} setLanguage={setLanguage} />
+        <Hero language={language} />
+        <Services language={language} />
         
-        <Process />
-        <WhyChoose />
-        <Contact />
-        <Footer />
+        <Process language={language} />
+        <WhyChoose language={language} />
+<Contact language={language} />
+        <Footer language={language} />
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import OrbitalRings from "./OrbitalRings";
 import EarthGlow from "./EarthGlow";
-import CyberY from "./CyberY";
+
 export default function CyberLogo() {
   return (
     <motion.div
@@ -15,15 +15,22 @@ export default function CyberLogo() {
       }}
       className="relative flex h-[420px] w-[420px] items-center justify-center"
     >
+      {/* Central glow */}
       <div className="absolute h-80 w-80 rounded-full bg-cyan-400/20 blur-[90px] animate-pulse" />
 
+      {/* Earth glow */}
       <EarthGlow />
 
-<OrbitalRings />
+      {/* Orbiting rings + particles */}
+      <OrbitalRings />
 
-<div className="relative z-10 flex h-64 w-64 items-center justify-center rounded-full border border-cyan-300/40 bg-[radial-gradient(circle_at_center,#0f2038_0%,#071120_70%,#050814_100%)] shadow-[0_0_80px_rgba(34,211,238,0.25)] backdrop-blur-xl">
-        <CyberY />
-
+      {/* Original Yopi GIF */}
+      <div className="relative z-10 flex h-72 w-72 items-center justify-center">
+        <img
+          src="/yopi-neon-y-transparent.gif"
+          alt="Yopi Digital Labs"
+          className="h-full w-full object-contain mix-blend-screen"
+        />
       </div>
     </motion.div>
   );

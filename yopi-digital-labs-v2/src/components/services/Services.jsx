@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { Bot, Code2, MessageSquare, TrendingUp } from "lucide-react";
+import { translations } from "../../translations";
+
 
 const services = [
   {
@@ -24,7 +26,10 @@ const services = [
   },
 ];
 
-export default function Services() {
+export default function Services({ language }) {
+  const t = (translations[language] || translations.EN).services;
+  const cards = t.cards || services;
+  
   return (
     <section
       id="services"
@@ -40,18 +45,17 @@ export default function Services() {
           className="text-center"
         >
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-400">
-            Our Services
+            {t.label}
           </p>
 
           <h2 className="mt-3 text-3xl font-black text-white sm:text-5xl">
-            We build modern
-            <span className="text-cyan-400"> digital solutions.</span>
+            {t.title}
+<span className="text-cyan-400">{t.highlight}</span>
           </h2>
 
           <p className="mx-auto mt-5 max-w-2xl text-white/60">
-            From AI automation to custom software development, we create
-            digital products that help businesses grow faster.
-          </p>
+  {t.description}
+</p>
         </motion.div>
 
         <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
@@ -76,11 +80,11 @@ export default function Services() {
                 </div>
 
                 <h3 className="text-lg font-bold text-white transition-colors duration-300 group-hover:text-cyan-300">
-                  {service.title}
+                  {t.cards[index].title}
                 </h3>
 
                 <p className="mt-3 text-sm leading-6 text-white/60">
-                  {service.text}
+                  {t.cards[index].text}
                 </p>
               </motion.div>
             );

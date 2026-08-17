@@ -5,64 +5,59 @@ import {
   ShieldCheck,
   Headset,
 } from "lucide-react";
+import { translations } from "../../translations";
 
-const features = [
-  {
-    icon: BrainCircuit,
-    title: "AI Expertise",
-    text: "We build practical AI solutions that automate workflows and improve efficiency.",
-  },
-  {
-    icon: Zap,
-    title: "Fast Delivery",
-    text: "Modern development methods allow us to deliver high-quality projects quickly.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Swiss Quality",
-    text: "Reliable, secure and scalable solutions built with long-term business value in mind.",
-  },
-  {
-    icon: Headset,
-    title: "Long-Term Support",
-    text: "We stay with you after launch to optimize, improve and support your systems.",
-  },
+const icons = [
+  BrainCircuit,
+  Zap,
+  ShieldCheck,
+  Headset,
 ];
 
-export default function WhyChoose() {
+export default function WhyChoose({ language }) {
+  const t =
+    translations[language]?.whyChoose ||
+    translations.EN?.whyChoose;
+
   return (
     <section
       id="why"
-      className="relative px-5 py-20 sm:px-6 lg:px-8"
+      className="relative overflow-hidden px-5 py-24 sm:px-6 lg:px-8"
     >
-      <div className="mx-auto max-w-7xl">
+      {/* Background glow */}
+      <div className="pointer-events-none absolute left-1/2 top-20 h-72 w-72 -translate-x-1/2 rounded-full bg-cyan-500/10 blur-[120px]" />
 
+      <div className="relative mx-auto max-w-7xl">
+
+        {/* Section heading */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center"
+          className="mx-auto max-w-3xl text-center"
         >
           <p className="text-sm font-semibold uppercase tracking-[0.35em] text-cyan-400">
-            Why Choose Us
+            {t.label}
           </p>
 
-          <h2 className="mt-4 text-2xl font-black leading-tight text-white sm:text-5xl">
-            Why businesses
-            <span className="text-cyan-400"> choose Yopi.</span>
+          <h2 className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
+            Built for{" "}
+            <span className="text-cyan-400">
+              real business value.
+            </span>
           </h2>
 
-          <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-white/60 sm:mt-6 sm:max-w-2xl sm:text-base">
-            We combine AI, automation and modern software development
-            to build solutions that create measurable business value.
+          <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-white/60 sm:text-base">
+            {t.description}
           </p>
         </motion.div>
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+        {/* Feature cards */}
+        <div className="mt-14 grid gap-5 sm:grid-cols-2">
 
-          {features.map((feature, index) => {
-            const Icon = feature.icon;
+          {t.features.map((feature, index) => {
+            const Icon = icons[index];
 
             return (
               <motion.div
@@ -71,22 +66,38 @@ export default function WhyChoose() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{
-                  duration: 0.5,
-                  delay: index * 0.12,
+                  duration: 0.55,
+                  delay: index * 0.1,
                 }}
-                className="group rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/40 hover:bg-white/10"
+                whileHover={{ y: -6 }}
+                className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.08] to-white/[0.02] p-6 backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/40 hover:shadow-[0_0_35px_rgba(34,211,238,0.12)] sm:p-7"
               >
-                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-300 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
-                  <Icon size={24} />
+
+                {/* Card glow */}
+                <div className="pointer-events-none absolute -right-16 -top-16 h-32 w-32 rounded-full bg-cyan-400/10 blur-3xl transition-all duration-500 group-hover:bg-cyan-400/20" />
+
+                {/* Top line */}
+                <div className="absolute left-6 right-6 top-0 h-px bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+                {/* Icon */}
+                <div className="relative mb-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-cyan-400/20 bg-cyan-400/10 text-cyan-300 shadow-[0_0_20px_rgba(34,211,238,0.08)] transition-all duration-300 group-hover:scale-110 group-hover:border-cyan-400/40 group-hover:bg-cyan-400/15 group-hover:shadow-[0_0_25px_rgba(34,211,238,0.18)]">
+                  <Icon size={27} strokeWidth={1.8} />
                 </div>
 
-                <h3 className="text-lg font-bold text-white transition-colors duration-300 group-hover:text-cyan-300">
-                  {feature.title}
-                </h3>
+                {/* Content */}
+                <div className="relative">
+                  <h3 className="text-xl font-bold text-white transition-colors duration-300 group-hover:text-cyan-300">
+                    {feature.title}
+                  </h3>
 
-                <p className="mt-3 text-sm leading-6 text-white/60">
-                  {feature.text}
-                </p>
+                  <p className="mt-3 max-w-lg text-sm leading-7 text-white/60">
+                    {feature.text}
+                  </p>
+                </div>
+
+                {/* Bottom accent */}
+                <div className="mt-7 h-px w-12 bg-cyan-400/40 transition-all duration-300 group-hover:w-20 group-hover:bg-cyan-400" />
+
               </motion.div>
             );
           })}

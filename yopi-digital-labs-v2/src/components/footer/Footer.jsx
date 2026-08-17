@@ -1,14 +1,54 @@
 import { motion } from "framer-motion";
 import { Mail, MapPin } from "lucide-react";
 
-const links = [
-  "Home",
-  "Services",
-  "Process",
-  "Contact",
+export default function Footer({ language }) {
+  const texts = {
+    EN: {
+      description:
+        "Building intelligent AI automations, custom software and high-performance websites for modern businesses.",
+      quickLinks: "Quick Links",
+      home: "Home",
+      services: "Services",
+      process: "Process",
+      contact: "Contact",
+      location: "Switzerland",
+      bottom: "Built with AI in Switzerland.",
+    },
+
+    DE: {
+      description:
+        "Wir entwickeln intelligente KI-Automatisierungen, individuelle Software und leistungsstarke Websites für moderne Unternehmen.",
+      quickLinks: "Schnellzugriff",
+      home: "Startseite",
+      services: "Leistungen",
+      process: "Prozess",
+      contact: "Kontakt",
+      location: "Schweiz",
+      bottom: "Mit KI in der Schweiz entwickelt.",
+    },
+
+    HU: {
+      description:
+        "Intelligens AI automatizálásokat, egyedi szoftvereket és nagy teljesítményű weboldalakat készítünk modern vállalkozások számára.",
+      quickLinks: "Gyorslinkek",
+      home: "Kezdőlap",
+      services: "Szolgáltatások",
+      process: "Folyamat",
+      contact: "Kapcsolat",
+      location: "Svájc",
+      bottom: "AI segítségével fejlesztve Svájcban.",
+    },
+  };
+
+  const t = texts[language] || texts.EN;
+
+  const links = [
+  { label: t.home, href: "#" },
+  { label: t.services, href: "#services" },
+  { label: t.process, href: "#process" },
+  { label: t.contact, href: "#contact" },
 ];
 
-export default function Footer() {
   return (
     <footer className="relative overflow-hidden border-t border-white/10 bg-[#050814] px-5 pt-24 pb-16 sm:px-6 lg:px-8">
 
@@ -29,8 +69,7 @@ export default function Footer() {
           </h2>
 
           <p className="mt-5 max-w-sm leading-7 text-white/60">
-            Building intelligent AI automations, custom software and
-            high-performance websites for modern businesses.
+            {t.description}
           </p>
         </motion.div>
 
@@ -43,20 +82,29 @@ export default function Footer() {
           transition={{ duration: 0.7 }}
         >
           <h3 className="mb-5 text-lg font-semibold text-white">
-            Quick Links
+            {t.quickLinks}
           </h3>
 
           <div className="space-y-3">
-            {links.map((link) => (
-              <a
-                key={link}
-                href={`#${link.toLowerCase()}`}
-                className="block text-white/60 transition hover:text-cyan-300"
-              >
-                {link}
-              </a>
-            ))}
-          </div>
+  {links.map((link) => (
+    <a
+      key={link.href}
+      href={link.href}
+      onClick={(e) => {
+        if (link.href === "#") {
+          e.preventDefault();
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        }
+      }}
+      className="block text-white/60 transition hover:text-cyan-300"
+    >
+      {link.label}
+    </a>
+  ))}
+</div>
         </motion.div>
 
         {/* Contact */}
@@ -68,19 +116,19 @@ export default function Footer() {
           transition={{ duration: 0.8 }}
         >
           <h3 className="mb-5 text-lg font-semibold text-white">
-            Contact
+            {t.contact}
           </h3>
 
           <div className="space-y-4">
 
             <div className="flex items-center gap-3 text-white/60">
               <Mail size={18} className="text-cyan-400" />
-              hello@yopidigitallabs.ch
+              yopi@yopidigitallabs.ch
             </div>
 
             <div className="flex items-center gap-3 text-white/60">
               <MapPin size={18} className="text-cyan-400" />
-              Switzerland
+              {t.location}
             </div>
 
           </div>
@@ -89,7 +137,7 @@ export default function Footer() {
       </div>
 
       <div className="relative mx-auto mt-16 max-w-7xl border-t border-white/10 pt-8 pb-8 text-center text-sm text-white/40">
-        © 2026 Yopi Digital Labs. Built with AI in Switzerland.
+        © 2026 Yopi Digital Labs. {t.bottom}
       </div>
 
     </footer>
