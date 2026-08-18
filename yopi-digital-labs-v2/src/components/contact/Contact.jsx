@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, Send, MousePointer2 } from "lucide-react";
 import emailjs from "@emailjs/browser";
 import { useState } from "react";
 import { supabase } from "../../supabase";
@@ -205,14 +205,22 @@ form.reset();
     (isPhone && phoneRevealed);
 
   const handleReveal = () => {
-    if (isEmail) {
+  if (isEmail) {
+    if (!emailRevealed) {
       setEmailRevealed(true);
+    } else {
+      window.location.href = `mailto:${emailAddress}`;
     }
+  }
 
-    if (isPhone) {
+  if (isPhone) {
+    if (!phoneRevealed) {
       setPhoneRevealed(true);
+    } else {
+      window.location.href = `tel:${phoneNumber.replace(/\s/g, "")}`;
     }
-  };
+  }
+};
 
   return (
     <div
@@ -231,21 +239,48 @@ form.reset();
           {item.title}
         </p>
 
-        <h3 className="text-lg font-semibold text-white">
-          {isRevealed ? (
-            item.value
-          ) : item.reveal ? (
-            <span className="text-white/50">
-              {language === "HU"
-                ? "Kattints a megjelenítéshez"
-                : language === "DE"
-                ? "Klicken zum Anzeigen"
-                : "Click to reveal"}
-            </span>
-          ) : (
-            item.value
-          )}
-        </h3>
+        <h3 className="flex items-center gap-2 text-lg font-semibold text-white">
+  {isRevealed ? (
+    <>
+      <span>{item.value}</span>
+
+      {item.reveal && (
+        <motion.span
+          initial={{ opacity: 0, x: -4 }}
+          animate={{
+            opacity: [0.45, 1, 0.45],
+            x: [0, 4, 0],
+          }}
+          transition={{
+            duration: 1.4,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          title={
+            language === "HU"
+              ? "Kattints újra"
+              : language === "DE"
+              ? "Erneut klicken"
+              : "Click again"
+          }
+          className="inline-flex text-cyan-300"
+        >
+          <MousePointer2 size={16} />
+        </motion.span>
+      )}
+    </>
+  ) : item.reveal ? (
+    <span className="text-white/50">
+      {language === "HU"
+        ? "Kattints a megjelenítéshez"
+        : language === "DE"
+        ? "Klicken zum Anzeigen"
+        : "Click to reveal"}
+    </span>
+  ) : (
+    item.value
+  )}
+</h3>
       </div>
     </div>
   );
