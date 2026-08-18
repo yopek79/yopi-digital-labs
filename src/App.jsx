@@ -12,7 +12,7 @@ import Footer from "./components/Footer";
 function App() {
   return (
     <>
-      <>
+    
   {/* <Background /> */}
 
   <div className="relative min-h-screen overflow-hidden text-white">
